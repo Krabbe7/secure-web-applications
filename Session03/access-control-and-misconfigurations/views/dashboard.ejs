@@ -1,19 +1,19 @@
-<%
-const content = `
-<div class="card">
+<% const content=` <div class="card">
     <div class="card-header">
         <h2>Dashboard</h2>
     </div>
     <div class="card-body">
         <h3>Welcome to your dashboard!</h3>
-        <p>Your role: <span id="user-role">Not implemented yet</span></p>
-        
+        <p>
+            ${user.role}
+        </p>
+
         <div class="mt-4">
             <h4>Role-specific content will appear here</h4>
             <p>Implement the role-based access control to show different content based on user roles.</p>
         </div>
     </div>
-</div>
-`;
-%>
-<%- include('layout', { title: 'Dashboard', content }) %> 
+    </div>
+    `;
+    %>
+    <%- include('layout', { title: 'Dashboard' , content }) %>

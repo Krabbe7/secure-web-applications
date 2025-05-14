@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>XSS Vulnerable App</title>
+    <title>Secure XSS Demo App</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -11,19 +12,24 @@
             margin: 0 auto;
             padding: 20px;
         }
+
         .comment {
             border: 1px solid #ccc;
             padding: 10px;
             margin: 10px 0;
         }
+
         form {
             margin: 20px 0;
         }
-        input[type="text"], textarea {
+
+        input[type="text"],
+        textarea {
             width: 100%;
             padding: 8px;
             margin: 5px 0;
         }
+
         button {
             padding: 8px 16px;
             background-color: #4CAF50;
@@ -33,39 +39,42 @@
         }
     </style>
 </head>
+
 <body>
-    <h1>XSS Vulnerable Application</h1>
-    
-    <!-- Vulnerable: Displays message without sanitization -->
+    <h1>Secure XSS Demo Application</h1>
+
+    <!-- Safe: Sanitized message -->
     <div id="message">
-        <%- message %>
+        <%= message %>
     </div>
 
-    <!-- Vulnerable: Displays search query without sanitization -->
-    <% if (typeof searchQuery !== 'undefined') { %>
-        <h2>Search Results for: <%- searchQuery %></h2>
-    <% } %>
+    <!-- Safe: Sanitized search query -->
+    <% if (typeof searchQuery !=='undefined' && searchQuery) { %>
+        <h2>Search Results for: <%= searchQuery %>
+        </h2>
+        <% } %>
 
-    <!-- Comment form -->
-    <form action="/comment" method="POST">
-        <h3>Add a Comment</h3>
-        <textarea name="comment" rows="4" placeholder="Enter your comment..."></textarea>
-        <button type="submit">Submit Comment</button>
-    </form>
+            <!-- Comment form -->
+            <form action="/comment" method="POST">
+                <h3>Add a Comment</h3>
+                <textarea name="comment" rows="4" placeholder="Enter your comment..." required></textarea>
+                <button type="submit">Submit Comment</button>
+            </form>
 
-    <!-- Vulnerable: Displays comments without sanitization -->
-    <h3>Comments</h3>
-    <% comments.forEach(function(comment) { %>
-        <div class="comment">
-            <%- comment %>
-        </div>
-    <% }); %>
+            <!-- Safe: Sanitized comments -->
+            <h3>Comments</h3>
+            <% comments.forEach(function(comment) { %>
+                <div class="comment">
+                    <%= comment %>
+                </div>
+                <% }); %>
 
-    <!-- Search form -->
-    <form action="/search" method="GET">
-        <h3>Search Comments</h3>
-        <input type="text" name="q" placeholder="Search...">
-        <button type="submit">Search</button>
-    </form>
+                    <!-- Search form -->
+                    <form action="/search" method="GET">
+                        <h3>Search Comments</h3>
+                        <input type="text" name="q" placeholder="Search..." required>
+                        <button type="submit">Search</button>
+                    </form>
 </body>
-</html> 
+
+</html>
