@@ -1,23 +1,28 @@
 <!DOCTYPE html>
 <html lang="da">
+
 <head>
   <meta charset="UTF-8">
-  <title>CSP Demo</title>
+  <title>CSP Demo med Nonce</title>
 </head>
+
 <body>
-  <h1>Hej CSP!</h1>
+  <h1>Hej CSP med Nonce!</h1>
 
-  <p>Dette er en testside for Content Security Policy.</p>
+  <p>Dette er en testside for Content Security Policy med nonce.</p>
 
-  <!-- Tilladt script -->
-  <script>
-    console.log("Dette script er tilladt.");
+  <!-- Inline script med nonce -->
+  <script nonce="my-demo-nonce-123">
+    console.log("✅ Dette inline script blev tilladt pga. nonce!");
   </script>
 
-  <!-- Script der bryder CSP (kommentér ind for test) -->
-  <!--
-  <script src="https://evil.com/malicious.js"></script>
-  -->
+  <!-- Eksternt script med nonce -->
+  <script src="https://evil.com/malicious.js" nonce="rAnd0m"></script>
 
+  <!-- Dette script UDEN nonce bliver blokeret -->
+  <script>
+    console.log("❌ Dette script burde blive blokeret uden nonce (afhængig af CSP header)");
+  </script>
 </body>
+
 </html>
